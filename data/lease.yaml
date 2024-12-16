@@ -1,0 +1,31 @@
+test_case:
+  - id: "lease_true001"
+    url: "admin/term/list"
+    method: "get"
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+      access-token: "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzU4ODg3NTksInN1YiI6IkxPR0lOX1VTRVIiLCJ1c2VySWQiOjIsInVzZXJuYW1lIjoidXNlciJ9.xqDNO5heI-V2afaIZLCd-Vj7w-uh2UeuXVNA1iJGYZk"
+    params: {}
+    expected_status_code: 200
+
+  - id: "lease_true002"
+    url: "admin/term/list"
+    method: "post"
+    headers:
+      Content-Type: "application/json"
+      access-token: "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzU4ODg3NTksInN1YiI6IkxPR0lOX1VTRVIiLCJ1c2VySWQiOjIsInVzZXJuYW1lIjoidXNlciJ9.xqDNO5heI-V2afaIZLCd-Vj7w-uh2UeuXVNA1iJGYZk"
+    params:
+      id: 4
+      monthCount: 3
+      unit: "月"
+    expected_status_code: 200
+
+  - id: "lease_true003"
+    url: "admin/term/list"
+    method: "delete"
+    headers:
+      Content-Type: "application/x-www-form-urlencoded"
+      access-token: "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzU4ODg3NTksInN1YiI6IkxPR0lOX1VTRVIiLCJ1c2VySWQiOjIsInVzZXJuYW1lIjoidXNlciJ9.xqDNO5heI-V2afaIZLCd-Vj7w-uh2UeuXVNA1iJGYZk"
+    params:
+      id: 1
+    expected_status_code: 200
