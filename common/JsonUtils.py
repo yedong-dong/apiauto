@@ -1,15 +1,9 @@
 
-
 import json
 import os
 from config.conf import BASE_DIR
 import yaml
 
-
-class Assertation:
-    @staticmethod
-    def assert_status_code(response,expected_code):
-        assert response.status_code == expected_code
 class JsonUtil:
     @staticmethod
     def parse(json_string):
@@ -52,24 +46,4 @@ class JsonUtil:
                 json.dump(obj, file, ensure_ascii=False, indent=4)
         except (TypeError, IOError) as e:
             raise ValueError(f"Error writing JSON to file: {e}")
-
-
-import os
-import yaml
-
-import os
-import yaml
-
-
-class LoadData:
-    @staticmethod
-    def load_data_from_yml(filename=None):
-
-        # 读取 YAML 文件并返回测试数据
-        with open(filename, "r", encoding="utf-8") as file:
-            return yaml.safe_load(file)['test_case']
-
-
-if __name__ == '__main__':
-    yml = LoadData.load_data_from_yml(r"D:\python\apiauto\data\lease.yaml")
 

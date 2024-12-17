@@ -1,12 +1,21 @@
+"""
+@File    : testLease
+@Time    : 2024/12/17 下午7:49
+@Author  : 86182
+"""
 import pytest
+
+import myApi
 from common import requestClient
 from common.loadDataUtil import LoadData
+
+from myApi.leaseApi import LeaseApi
 class TestLease:
 
     @pytest.fixture
     def base_api(self):
         """Fixture to initialize API client."""
-        client = requestClient.APIClient("http://localhost:8080/")
+        client = LeaseApi()
         yield client
         # 可在此添加清理工作，例如关闭连接等（如果需要）
 
@@ -33,7 +42,7 @@ class TestLease:
             response = base_api.delete(url, params=params, headers=headers)
         else:
             raise ValueError(f"Unsupported HTTP method: {method}")
-
         # 输出响应内容和状态码
-
         assert response.json()['code']==expected_status_code
+
+
