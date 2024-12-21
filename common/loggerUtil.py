@@ -1,57 +1,55 @@
-import logging.handlers
-from config.ENV import BASE_DIR as DIR_NAME
+import logging
+import os
+import time
 
+from colorlog import ColoredFormatter
 
-class GetLogger:
-    '''
-    当已经创建了logger对象的时候，那么之后就不在创建了，也就是只创建一次对象
-    '''
-    # 把logger对象的初始值设置为None
-    logger = None
+import config.conf
 
-    # 创建logger，并且返回这个logger
-    @classmethod
-    def get_logger(cls):
-        if cls.logger is None:
-            ########创建日志器，控制他的创建次数
-            cls.logger = logging.getLogger('apiautotest')  # 不是None
-            # 设置总的级别，debug/info/warning/error
-            # 只有比debug级别高的日志才会被显示出来
-            cls.logger.setLevel(logging.DEBUG)
-            # 2获取格式器
-            # 2.1 要给格式器设置要输出的样式
-            fmt = "%(asctime)s %(levelname)s [%(name)s] [%(filename)s (%(funcName)s:%(lineno)d] - %(message)s"
-            # 2.2创建格式器，并且给他设置样式
-            fm = logging.Formatter(fmt)
-            # 3.创建处理器 按照时间进行切割文件
-            tf = logging.handlers.TimedRotatingFileHandler(filename=DIR_NAME +'/logs/requestslog.log',  # 原日志文件
-                                                           when='H',  # 间隔多长时间把日志存放到新的文件中
-                                                           interval=1,
-                                                           backupCount=3,  # 除了原日志文件，还有3个备份
-                                                           encoding='utf-8'
-                                                           )
-            #这是在控制台上打印日志信息
-            logging.basicConfig(level=logging.DEBUG,format=fmt)
+# 创建日志记录器
+logger = logging.getLogger('my_logger')
 
-            # 在处理器中添加格式器
-            #格式器可以初始化日志记录的内容格式，结合LogRecord对象提供的属性，可以设置不同的日志格式
-            #logging.Formatter(fmt=None, datefmt=None, style='％')
-            #fmt：日志格式参数，默认为None，如果不特别指定fmt，则使用’%(message)s’格式
-            #datafmt：时间格式参数，默认为None，如果不特别指定datafmt，则使用formatTime()文档中描述的格式
-            #style：风格参数，默认为’%’，也支持’$’，’{'格式
-            tf.setFormatter(fm)
-            # 在日志器中添加处理器
-            cls.logger.addHandler(tf)
+# 检查是否已经添加过处理器，避免重复添加
+if not logger.hasHandlers():
+    logger.setLevel(logging.DEBUG)
 
-            # return cls.logger
-        return cls.logger
+    # 定义日志颜色格式
+    log_colors = {
+        'DEBUG': 'white',
+        'INFO': 'green',
+        'WARNING': 'yellow',
+        'ERROR': 'red',
+        'CRITICAL': 'bold_red'
+    }
 
+    # 创建控制台处理器并设置级别
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.DEBUG)
 
-if __name__ == '__main__':
-    logger = GetLogger.get_logger()
-    logger.debug('调试')  # 相当print小括号中的信息
-    logger.info('信息')
-    logger.warning('警告')
-    name = 'yaoyao'
-    logger.error('这个变量是{}'.format(name))
-    logger.critical('致命的')
+    # 设置彩色格式化器，使用方括号分割信息
+    color_formatter = ColoredFormatter(
+        "[%(levelname)s] %(log_color)s[%(asctime)s]:[%(name)s] - %(filename)s:%(lineno)d - %(message)s",
+        log_colors=log_colors
+    )
+    console_handler.setFormatter(color_formatter)
+
+    # 确保日志目录存在
+    path = os.path.join(config.conf.BASE_DIR, "log")
+    if not os.path.exists(path):
+        os.makedirs(path)
+
+    # 创建文件处理器并设置级别
+    daytime = time.strftime("%Y-%m-%d")
+    filename = os.path.join(path, f'run_log_{daytime}.log')
+    file_handler = logging.FileHandler(filename=filename, mode='a', encoding='utf8')
+    file_handler.setLevel(logging.INFO)
+
+    # 设置文件格式化器（不带颜色），使用方括号分割信息
+    file_formatter = logging.Formatter(
+        '[%(asctime)s] [%(name)s] [%(levelname)s] [%(filename)s:%(lineno)d] - %(message)s'
+    )
+    file_handler.setFormatter(file_formatter)
+
+    # 将处理器添加到记录器
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)

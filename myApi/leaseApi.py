@@ -6,6 +6,7 @@
 
 from common.requestClient import APIClient
 class LeaseApi(APIClient):
+
     def __init__(self,base_url="http://localhost:8080/"):
         super().__init__(base_url=base_url)
 

@@ -9,7 +9,6 @@ import yaml
 class LoadData:
     @staticmethod
     def load_data_from_yml(filename=None):
-
         # 读取 YAML 文件并返回测试数据
         with open(filename, "r", encoding="utf-8") as file:
-            return yaml.safe_load(file)['test_case']
+            return yaml.safe_load(file)

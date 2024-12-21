@@ -1,0 +1,85 @@
+- id: 'room_info001'
+  url: '/admin/room/updateReleaseStatusById'
+  method: 'GET'
+  headers:
+    content-type: 'application/x-www-form-urlencoded'
+  params:
+    id: '1'
+    status: '1'
+  response:
+    expected_status_code: 200
+    message: '成功'
+    data: null
+
+- id: 'room_info002'
+  url: '/admin/room/saveOrUpdate'
+  method: 'POST'
+  headers:
+    content-type: 'application/json'
+  params:
+    id: '0'
+    roomNumber: ''
+    rent: 0
+    apartmentId: 0
+    isRelease: ''
+    graphVoList:
+      - name: ''
+        url: ''
+    attrValueIds: [ ]
+    facilityInfoIds: [ ]
+    labelInfoIds: [ ]
+    paymentTypeIds: [ ]
+    leaseTermIds: [ ]
+  response:
+    expected_status_code: 201
+    message: '失败'
+    data: null
+
+- id: 'room_info003'
+  url: '/admin/room/pageItem'
+  method: 'GET'
+  headers:
+    content-type: 'application/x-www-form-urlencoded'
+  params:
+    currennt: '1'
+    size: '1'
+  response:
+    expected_status_code: 200
+    message: '成功'
+    data: { }
+
+- id: 'room_info004'
+  url: '/admin/room/listBasicByApartmentId'
+  method: 'GET'
+  headers:
+    content-type: 'application/x-www-form-urlencoded'
+  params:
+    id: '1'
+  response:
+    expected_status_code: 200
+    message: '成功'
+    data: null
+
+- id: 'room_info005'
+  url: '/admin/room/getDetailById'
+  method: 'GET'
+  headers:
+    content-type: 'application/x-www-form-urlencoded'
+  params:
+    id: '1'
+  response:
+    expected_status_code: 200
+    message: '成功'
+    data: null
+
+- id: 'room_info006'
+  url: '/admin/room/removeById'
+  method: 'DELETE'
+  headers:
+    content-type: 'application/x-www-form-urlencoded'
+  params:
+    id: '0'
+  response:
+    expected_status_code: 200
+    message: '成功'
+    data: null

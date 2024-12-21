@@ -4,7 +4,8 @@
 @Author  : 86182
 """
 
+
 class Assertation:
     @staticmethod
-    def assert_status_code(response,expected_code):
+    def assert_status_code(response, expected_code):
         assert response.status_code == expected_code

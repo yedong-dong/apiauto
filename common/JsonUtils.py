@@ -1,8 +1,5 @@
-
 import json
-import os
-from config.conf import BASE_DIR
-import yaml
+
 
 class JsonUtil:
     @staticmethod
@@ -46,4 +43,3 @@ class JsonUtil:
                 json.dump(obj, file, ensure_ascii=False, indent=4)
         except (TypeError, IOError) as e:
             raise ValueError(f"Error writing JSON to file: {e}")
-

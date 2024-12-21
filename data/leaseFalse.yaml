@@ -1,0 +1,48 @@
+- id: "lease_false001（未提供id）"
+  url: "/admin/term/saveOrUpdate"
+  method: "post"
+  headers:
+    Content-Type: "application/json"
+  #      access-token: "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzU4ODg3NTksInN1YiI6IkxPR0lOX1VTRVIiLCJ1c2VySWQiOjIsInVzZXJuYW1lIjoidXNlciJ9.xqDNO5heI-V2afaIZLCd-Vj7w-uh2UeuXVNA1iJGYZk"
+  params:
+    id:
+    monthCount: 3
+    unit: "月"
+  expected_status_code: 201
+
+- id: "lease_false002（未提供monthCount）"
+  url: "/admin/term/saveOrUpdate"
+  method: "post"
+  headers:
+    Content-Type: "application/json"
+  #      access-token: "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzU4ODg3NTksInN1YiI6IkxPR0lOX1VTRVIiLCJ1c2VySWQiOjIsInVzZXJuYW1lIjoidXNlciJ9.xqDNO5heI-V2afaIZLCd-Vj7w-uh2UeuXVNA1iJGYZk"
+  params:
+    id: 4
+    monthCount:
+    unit: "月"
+  expected_status_code: 201
+
+- id: "lease_false003(未提供unit)"
+  url: "/admin/term/saveOrUpdate"
+  method: "post"
+  headers:
+    Content-Type: "application/json"
+  #      access-token: "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzU4ODg3NTksInN1YiI6IkxPR0lOX1VTRVIiLCJ1c2VySWQiOjIsInVzZXJuYW1lIjoidXNlciJ9.xqDNO5heI-V2afaIZLCd-Vj7w-uh2UeuXVNA1iJGYZk"
+  params:
+    id: 4
+    monthCount: 3
+    unit:
+  expected_status_code: 201
+
+
+- id: "lease_false004(没有提供token）"
+  url: "/admin/term/saveOrUpdate"
+  method: "post"
+  headers:
+    Content-Type: "application/json"
+    access-token: ""
+  params:
+    id: 4
+    monthCount: 3
+    unit: "月"
+  expected_status_code: 201
